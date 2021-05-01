@@ -2,6 +2,7 @@ export type RootStackParamList = {
   Home: undefined;
   Page1: undefined;
   Page2: undefined;
+  PatientList: undefined;
   NotFound: undefined;
 };
 

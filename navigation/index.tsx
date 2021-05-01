@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
+import PatientListScreen from '../screens/PatientListScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList } from '../types';
@@ -31,6 +32,7 @@ function RootNavigator() {
       <Stack.Screen name="Home" component={TabOneScreen} />
       <Stack.Screen name="Page1" component={TabTwoScreen} />
       <Stack.Screen name="Page2" component={TabTwoScreen} />
+      <Stack.Screen name="PatientList" component={PatientListScreen} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

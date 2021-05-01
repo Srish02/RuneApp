@@ -26,7 +26,7 @@ export default function TabOneScreen({ route, navigation }: Props) {
         <Text style={styles.buttonText}>Request physical therapy</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => alert('Hello, world!')}
+        onPress={() => navigation.navigate('PatientList')}
         style={styles.button}>
         <Text style={styles.buttonText}>Check lab results</Text>
       </TouchableOpacity>
