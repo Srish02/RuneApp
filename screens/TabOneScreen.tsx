@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function TabOneScreen() {
+export default function TabOneScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Patient Portal</Text>
@@ -12,7 +12,7 @@ export default function TabOneScreen() {
       <Text style={styles.body}>What would you like help with today?</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <TouchableOpacity
-        onPress={() => alert('Hello, world!')}
+        onPress={() => navigation.navigate('Page1')}
         style={styles.button}>
         <Text style={styles.buttonText}>Request medication refill</Text>
       </TouchableOpacity>
