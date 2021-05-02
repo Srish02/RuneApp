@@ -1,11 +1,12 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import { RootStackParamList } from '../types';
 
-export default function TabTwoScreen() {
+export default function NurseDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'NurseDashboard'>) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<any[]>([]);
 
@@ -29,9 +30,22 @@ export default function TabTwoScreen() {
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
+<<<<<<< HEAD:screens/PatientListScreen.tsx
             <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
+=======
+            <TouchableOpacity
+              onPress={() => navigation.navigate('NurseEditDetails')}
+              style={styles.button}>
+              <Text style={styles.buttonText}>{item.FirstName}</Text>
+            </TouchableOpacity>
+>>>>>>> 206dc33512e7199e42fe7959677a2fb5a3b0b87d:screens/NurseDashboardScreen.tsx
           )}
         />}
+      <TouchableOpacity
+        onPress={() => navigation.popToTop()}
+        style={styles.button}>
+        <Text style={styles.buttonText}>Log Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -53,7 +67,22 @@ const styles = StyleSheet.create({
     height: 2,
     width: '80%',
   },
+<<<<<<< HEAD:screens/PatientListScreen.tsx
   setColorBlack : {
     color: '#000000'
+=======
+  button: {
+    padding: 20,
+    margin: 10,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+    borderRadius: 40,
+    width: 300,
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#000',
+>>>>>>> 206dc33512e7199e42fe7959677a2fb5a3b0b87d:screens/NurseDashboardScreen.tsx
   }
 });

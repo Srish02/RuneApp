@@ -1,8 +1,11 @@
 export type RootStackParamList = {
-  Home: undefined;
-  Page1: undefined;
-  Page2: undefined;
-  PatientList: undefined;
+  Splash: undefined;
+  PatientLogin: undefined;
+  PatientDashboard: undefined;
+  PatientTestResults: undefined;
+  NurseLogin: undefined;
+  NurseDashboard: undefined;
+  NurseEditDetails: undefined;
   NotFound: undefined;
   TabOne: undefined;
   MainScreen: undefined;

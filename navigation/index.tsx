@@ -4,10 +4,20 @@ import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
-import PatientListScreen from '../screens/PatientListScreen';
+
+// import PatientListScreen from '../screens/PatientListScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import MainScreen from '../screens/MainScreen';
+
+import NurseDashboardScreen from '../screens/NurseDashboardScreen';
+import NurseEditDetails from '../screens/NurseEditDetailsScreen';
+import NurseLoginScreen from '../screens/NurseLoginScreen';
+import PatientDashboardScreen from '../screens/PatientDashboardScreen';
+import PatientLoginScreen from '../screens/PatientLoginScreen';
+import PatientTestResults from '../screens/PatientTestResultsScreen';
+import SplashScreen from '../screens/SplashScreen';
+
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -31,10 +41,17 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="MainScreen">
       <Stack.Screen name="MainScreen" component={MainScreen} />
-      <Stack.Screen name="Home" component={TabOneScreen} />
+      {/* <Stack.Screen name="Home" component={TabOneScreen} />
       <Stack.Screen name="Page1" component={TabTwoScreen} />
-      <Stack.Screen name="Page2" component={TabTwoScreen} />
       <Stack.Screen name="PatientList" component={PatientListScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash"> */}
+      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="PatientLogin" component={PatientLoginScreen} />
+      <Stack.Screen name="PatientDashboard" component={PatientDashboardScreen} />
+      <Stack.Screen name="PatientTestResults" component={PatientTestResults} />
+      <Stack.Screen name="NurseLogin" component={NurseLoginScreen} />
+      <Stack.Screen name="NurseDashboard" component={NurseDashboardScreen} />
+      <Stack.Screen name="NurseEditDetails" component={NurseEditDetails} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );
