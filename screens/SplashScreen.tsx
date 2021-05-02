@@ -6,29 +6,23 @@ import { Text, View } from '../components/Themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
 
-export default function TabOneScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'Splash'>) {
+type Props = StackScreenProps<RootStackParamList, 'Splash'>;
+
+export default function SplashScreen({ route, navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Patient Portal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text style={styles.body}>What would you like help with today?</Text>
+      <Text style={styles.title}>Welcome to Rune</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <TouchableOpacity
-        // onPress={() => navigation.navigate('Page1')}
+        onPress={() => navigation.navigate('PatientLogin')}
         style={styles.button}>
-        <Text style={styles.buttonText}>Request medication refill</Text>
+        <Text style={styles.buttonText}>Patient</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => alert('Hello, world!')}
+        onPress={() => navigation.navigate('NurseLogin')}
         style={styles.button}>
-        <Text style={styles.buttonText}>Request physical therapy</Text>
+        <Text style={styles.buttonText}>Nurse</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        // onPress={() => navigation.navigate('PatientList')}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Check lab results</Text>
-      </TouchableOpacity>
-      {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
     </View>
   );
 }
