@@ -4,6 +4,9 @@ export type RootStackParamList = {
   Page2: undefined;
   PatientList: undefined;
   NotFound: undefined;
+  TabOne: undefined;
+  MainScreen: undefined;
+  NurseMain: undefined;
 };
 
 export type BottomTabParamList = {

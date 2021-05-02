@@ -6,12 +6,12 @@ import { Text, View } from '../components/Themed';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
 
-type Props = StackScreenProps<RootStackParamList, 'Home'>;
+type Props = StackScreenProps<RootStackParamList, 'NurseMain'>;
 
-export default function TabOneScreen({ route, navigation }: Props) {
+export default function NurseMainScreen({ route, navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, styles.setColorRed]}>Patient Portal</Text>
+      <Text style={[styles.title, styles.setColorRed]}>Nurse Portal</Text>
       <View style={styles.separator} lightColor="#fff" darkColor="rgba(255,255,255,0.1)" />
       <Text style={[styles.body, styles.setColorRed]}>What would you like help with today?</Text>
       <View style={styles.separator} lightColor="#fff" darkColor="rgba(255,255,255,0.1)" />

@@ -22,14 +22,14 @@ export default function TabTwoScreen() {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Patient List</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <Text style={[styles.title, styles.setColorBlack]}>Patient List</Text>
+      <View style={styles.separator} />
       {isLoading ? <Text>Loading...</Text> :
       <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text>{item.id}, {item.FirstName}, {item.LastName}</Text>
+            <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
           )}
         />}
     </View>
@@ -41,14 +41,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   title: {
+    top: 106,
     fontSize: 40,
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
+    marginVertical: 120,
+    height: 2,
     width: '80%',
   },
+  setColorBlack : {
+    color: '#000000'
+  }
 });

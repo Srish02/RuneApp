@@ -7,6 +7,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import PatientListScreen from '../screens/PatientListScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import MainScreen from '../screens/MainScreen';
 import { RootStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -16,7 +17,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -28,7 +29,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="MainScreen">
+      <Stack.Screen name="MainScreen" component={MainScreen} />
       <Stack.Screen name="Home" component={TabOneScreen} />
       <Stack.Screen name="Page1" component={TabTwoScreen} />
       <Stack.Screen name="Page2" component={TabTwoScreen} />
