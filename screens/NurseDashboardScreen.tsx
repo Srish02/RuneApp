@@ -30,15 +30,12 @@ export default function NurseDashboardScreen({ route, navigation }: StackScreenP
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-<<<<<<< HEAD:screens/PatientListScreen.tsx
-            <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
-=======
-            <TouchableOpacity
-              onPress={() => navigation.navigate('NurseEditDetails')}
-              style={styles.button}>
-              <Text style={styles.buttonText}>{item.FirstName}</Text>
-            </TouchableOpacity>
->>>>>>> 206dc33512e7199e42fe7959677a2fb5a3b0b87d:screens/NurseDashboardScreen.tsx
+            <><Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('NurseEditDetails')}
+                style={styles.button}>
+                <Text style={styles.buttonText}>{item.FirstName}</Text>
+              </TouchableOpacity></>
           )}
         />}
       <TouchableOpacity
@@ -67,10 +64,9 @@ const styles = StyleSheet.create({
     height: 2,
     width: '80%',
   },
-<<<<<<< HEAD:screens/PatientListScreen.tsx
   setColorBlack : {
     color: '#000000'
-=======
+  },
   button: {
     padding: 20,
     margin: 10,
@@ -83,6 +79,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: '#000',
->>>>>>> 206dc33512e7199e42fe7959677a2fb5a3b0b87d:screens/NurseDashboardScreen.tsx
   }
 });

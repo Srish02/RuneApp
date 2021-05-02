@@ -26,14 +26,14 @@ export default function MainScreen({ route, navigation }: Props) {
           <Button
             title="Nurse"
             color="#fff"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('PatientLogin')}
           />
         </View>
         <View style={styles.fixToText1}>
           <Button
             title="Patient"
             color="#fff"
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('PatientLogin')}
           />
         </View>
       </View>
