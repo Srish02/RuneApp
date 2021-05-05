@@ -1,10 +1,11 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { StyleSheet, TouchableOpacity, TextInput, Alert, Keyboard } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
 import axios from 'axios'
+import * as Notifications from 'expo-notifications';
 
 export default function PatientLoginScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientLogin'>) {
   const [firstName, setFirstName] = useState("");
@@ -27,11 +28,12 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
 
     axios.post('https://rune-rest-api.azurewebsites.net/api/patients', {
       "FirstName":firstName,
-      "LastName": lastName
+      "LastName": lastName,
+      "token": registerForPushNotificationsAsync() 
     })
       .then(response => {
         console.log(response);
-        Alert.alert("Worked")
+        navigation.replace('PatientDashboard');
       })
       .catch(function (error) {
           console.log(error)
@@ -41,7 +43,6 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Patient Login Screen</Text>
-      <Text style={[styles.title, styles.setColorRed]}>Nurse Login Screen</Text>
         <View style={styles.SectionStyle}>
           <TextInput
             style={styles.inputStyle}
@@ -58,14 +59,16 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
             onChangeText={(UserPassword) =>
               setLastName(UserPassword)
             }
-            placeholder="Enter Password" //12345
+            placeholder="Enter Password" 
             placeholderTextColor="#8b9cb5"
             keyboardType="default"
             returnKeyType="next"
+            onSubmitEditing={Keyboard.dismiss}
           />
         </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('PatientDashboard')}
+        onPress={handleSubmitPress}
+        // onPress={() => navigation.navigate('PatientDashboard')}
         style={styles.button}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -127,3 +130,11 @@ const styles = StyleSheet.create({
     borderColor: '#dadae8',
   },
 });
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  token = (await Notifications.getExpoPushTokenAsync()).data;
+  console.log(token);
+  return token;
+}
+

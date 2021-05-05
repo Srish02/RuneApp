@@ -5,7 +5,7 @@ export type RootStackParamList = {
   PatientTestResults: undefined;
   NurseLogin: undefined;
   NurseDashboard: undefined;
-  NurseEditDetails: {itemId: number};
+  NurseEditDetails: {itemId: number, token: string};
   NotFound: undefined;
   TabOne: undefined;
   MainScreen: undefined;

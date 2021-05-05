@@ -33,7 +33,7 @@ export default function NurseDashboardScreen({ route, navigation }: StackScreenP
           renderItem={({ item }) => (
             // <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('NurseEditDetails', {itemId: item.id,})}
+                onPress={() => navigation.navigate('NurseEditDetails', {itemId: item.id, token: item.token,})}
                 style={styles.button}>
                 <Text style={styles.buttonText}>{item.FirstName}</Text>
               </TouchableOpacity>

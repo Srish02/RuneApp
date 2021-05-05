@@ -13,6 +13,7 @@ export default function NurseLoginScreen({ route, navigation }: StackScreenProps
 
   return (
     <View style={styles.container}>
+      <Text style={[styles.title, styles.setColorRed]}>Nurse Login Screen</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate('NurseDashboard')}
         style={styles.button}>
