@@ -16,7 +16,7 @@ export default function NurseMainScreen({ route, navigation }: Props) {
       <Text style={[styles.body, styles.setColorRed]}>What would you like help with today?</Text>
       <View style={styles.separator} lightColor="#fff" darkColor="rgba(255,255,255,0.1)" />
       <TouchableOpacity
-        onPress={() => navigation.navigate('Page1')}
+        onPress={() => navigation.navigate('NurseLogin')}
         style={styles.button}>
         <Text style={styles.buttonText}>Request medication refill</Text>
       </TouchableOpacity>
@@ -26,7 +26,7 @@ export default function NurseMainScreen({ route, navigation }: Props) {
         <Text style={styles.buttonText}>Request physical therapy</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('PatientList')}
+        onPress={() => navigation.navigate('NurseLogin')}
         style={styles.button}>
         <Text style={styles.buttonText}>Check lab results</Text>
       </TouchableOpacity>

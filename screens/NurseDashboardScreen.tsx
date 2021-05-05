@@ -5,6 +5,7 @@ import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
+import * as Notifications from 'expo-notifications';
 
 export default function NurseDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'NurseDashboard'>) {
   const [isLoading, setLoading] = useState(true);
@@ -30,12 +31,12 @@ export default function NurseDashboardScreen({ route, navigation }: StackScreenP
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <><Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
+            // <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('NurseEditDetails')}
+                onPress={() => navigation.navigate('NurseEditDetails', {itemId: item.id,})}
                 style={styles.button}>
                 <Text style={styles.buttonText}>{item.FirstName}</Text>
-              </TouchableOpacity></>
+              </TouchableOpacity>
           )}
         />}
       <TouchableOpacity

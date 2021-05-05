@@ -26,7 +26,7 @@ export default function MainScreen({ route, navigation }: Props) {
           <Button
             title="Nurse"
             color="#fff"
-            onPress={() => navigation.navigate('PatientLogin')}
+            onPress={() => navigation.navigate('NurseLogin')}
           />
         </View>
         <View style={styles.fixToText1}>

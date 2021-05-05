@@ -1,14 +1,69 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
+import axios from 'axios'
 
 export default function PatientLoginScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientLogin'>) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errortext, setErrortext] = useState('');
+
+  const handleSubmitPress = () => {
+    setErrortext('');
+    if (!firstName) {
+      alert('Please fill firstName');
+      return;
+    }
+    if (!lastName) {
+      alert('Please fill lastName');
+      return;
+    }
+    setLoading(true);
+    let dataToSend = {firstName: firstName, lastName: lastName};
+
+    axios.post('https://rune-rest-api.azurewebsites.net/api/patients', {
+      "FirstName":firstName,
+      "LastName": lastName
+    })
+      .then(response => {
+        console.log(response);
+        Alert.alert("Worked")
+      })
+      .catch(function (error) {
+          console.log(error)
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Patient Login Screen</Text>
+      <Text style={[styles.title, styles.setColorRed]}>Nurse Login Screen</Text>
+        <View style={styles.SectionStyle}>
+          <TextInput
+            style={styles.inputStyle}
+            onChangeText={(UserEmail) =>
+              setFirstName(UserEmail)
+            }
+            placeholder="Enter Email"
+            placeholderTextColor="#8b9cb5"
+          />
+        </View>
+        <View style={styles.SectionStyle}>
+          <TextInput
+            style={styles.inputStyle}
+            onChangeText={(UserPassword) =>
+              setLastName(UserPassword)
+            }
+            placeholder="Enter Password" //12345
+            placeholderTextColor="#8b9cb5"
+            keyboardType="default"
+            returnKeyType="next"
+          />
+        </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('PatientDashboard')}
         style={styles.button}>
@@ -50,5 +105,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: '#000',
-  }
+  },
+  setColorRed : {
+    color: '#191970'
+  },
+  SectionStyle: {
+    flexDirection: 'row',
+    height: 40,
+    marginTop: 20,
+    marginLeft: 35,
+    marginRight: 35,
+    margin: 10,
+  },
+  inputStyle: {
+    flex: 1,
+    color: 'white',
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: '#dadae8',
+  },
 });
