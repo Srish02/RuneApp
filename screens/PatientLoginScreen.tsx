@@ -13,7 +13,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
 
-  const handleSubmitPress = () => {
+  const handleSubmitPress = async () => {
     setErrortext('');
     if (!firstName) {
       alert('Please fill firstName');
@@ -24,19 +24,31 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
       return;
     }
     setLoading(true);
-    let dataToSend = {firstName: firstName, lastName: lastName};
 
+    const token = await registerForPushNotificationsAsync();
     axios.post('https://rune-rest-api.azurewebsites.net/api/patients', {
-      "FirstName":firstName,
+      "FirstName": firstName,
       "LastName": lastName,
-      "token": registerForPushNotificationsAsync() 
+      "ExpoNotificationToken": token,
     })
       .then(response => {
         console.log(response);
         navigation.replace('PatientDashboard');
       })
       .catch(function (error) {
-          console.log(error)
+        console.log(error);
+        if (error.response) {
+          // Request made and server responded
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Request', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
       });
   };
 
@@ -132,9 +144,6 @@ const styles = StyleSheet.create({
 });
 
 async function registerForPushNotificationsAsync() {
-  let token;
-  token = (await Notifications.getExpoPushTokenAsync()).data;
-  console.log(token);
-  return token;
+  return (await Notifications.getExpoPushTokenAsync()).data;
 }
 
