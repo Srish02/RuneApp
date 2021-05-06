@@ -8,15 +8,18 @@ import { RootStackParamList } from '../types';
 export default function PatientDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientDashboard'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Patient Dashboard Screen</Text>
+      <Text style={styles.goodMorning}>Good morning,</Text>
+      <Text style={styles.goodMorningName}>Oliver</Text>
+      <Text style={styles.nurseAssigned}>Nurse Assigned: Alex</Text>
+      <View style={styles.spacer}></View>
       <TouchableOpacity
         onPress={() => navigation.navigate('PatientTestResults')}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Test Results</Text>
+        style={[styles.button, styles.testResultsButton]}>
+        <Text style={styles.buttonText}>Check Test Results</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.popToTop()}
-        style={styles.button}>
+        style={[styles.button, styles.logOut]}>
         <Text style={styles.buttonText}>Log Out</Text>
       </TouchableOpacity>
     </View>
@@ -26,8 +29,12 @@ export default function PatientDashboardScreen({ route, navigation }: StackScree
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+  },
+  spacer: {
+    marginVertical: 100,
   },
   title: {
     fontSize: 20,
@@ -46,9 +53,29 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 300,
   },
+  logOut: {
+    alignSelf: 'center',
+  },
+  testResultsButton: {
+    alignSelf: 'center',
+  },
   buttonText: {
     textAlign: 'center',
     fontSize: 20,
     color: '#000',
-  }
+  },
+  goodMorning: {
+    left: "10%",
+    fontSize: 36,
+  },
+  goodMorningName: {
+    left: "10%",
+    fontSize: 36,
+    fontWeight: "bold",
+  },
+  nurseAssigned: {
+    marginTop: 30,
+    fontSize: 20,
+    left: "10%",
+  },
 });
