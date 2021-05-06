@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Text, Button, Alert, SafeAreaView} from "react-native";
+import { StyleSheet, View, Image, Text, Button, Alert, SafeAreaView, TouchableOpacity} from "react-native";
 
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types';
-
-type RenderGreetingProps = {
-  element: React.FunctionComponent<any>
-};
 
 type Props = StackScreenProps<RootStackParamList, 'MainScreen'>;
 export default function MainScreen({ route, navigation }: Props) {
@@ -22,20 +18,12 @@ export default function MainScreen({ route, navigation }: Props) {
           <Text style={styles.bigBlue}>{`Welcome to \nRune`}</Text>
           <SafeAreaView style={styles.container}></SafeAreaView>
         </View>
-        <View style={styles.fixToText}>
-          <Button
-            title="Nurse"
-            color="#fff"
-            onPress={() => navigation.navigate('NurseLogin')}
-          />
-        </View>
-        <View style={styles.fixToText1}>
-          <Button
-            title="Patient"
-            color="#fff"
-            onPress={() => navigation.navigate('PatientLogin')}
-          />
-        </View>
+        <TouchableOpacity style={styles.fixToText} onPress={() => navigation.navigate('NurseLogin')}>
+          <Text style={styles.buttonText}>Nurse</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.fixToText1} onPress={() => navigation.navigate('PatientLogin')}>
+          <Text style={styles.buttonText}>Patient</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -64,7 +52,12 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 5,
     display:"flex",
-    borderRadius: 15       
+    borderRadius: 15,
+  },
+  buttonText: {
+    color: '#fff',
+    textAlign: "center",
+    fontSize: 20,
   },
   imageStack: {
     top: 0,
@@ -87,6 +80,7 @@ const styles = StyleSheet.create({
     height: 52,
     paddingHorizontal: 30,
     paddingVertical: 5,
+    justifyContent: "center",
   },
   fixToText1: {
     top: 470,
@@ -96,6 +90,7 @@ const styles = StyleSheet.create({
     height: 52,
     paddingHorizontal: 30,
     paddingVertical: 5,
+    justifyContent: "center",
   },
   separator: {
     marginVertical: 8,
