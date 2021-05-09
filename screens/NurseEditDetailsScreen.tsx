@@ -1,12 +1,12 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Alert, Platform } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Alert, Platform, FlatList } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
-import * as Notifications from 'expo-notifications';
+import * as Notifications from 'expo-notifications'
 
 import axios from 'axios'
 import Constants from 'expo-constants';
-import { Notifications as Notifications2 } from 'expo';
+import { Notifications as Notifications2, Permissions } from 'expo';
 
 import { Text, View } from '../components/Themed';
 import { RootStackParamList } from '../types';
@@ -17,8 +17,8 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
-  const notificationListener: React.MutableRefObject<null> = useRef(null);
   const responseListener = useRef();
+  const notificationListener = useRef();
 
   const { itemId, token } = route.params;
 
@@ -46,16 +46,24 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
       "TestResults":value
     })
       .then(response => {
-        console.log(response);
+        //console.log(response);
+        // console.log(token);
         registerForPushNotificationsAsync(token).then(token => setExpoPushToken(token));
         Notifications2.addListener((data: any) => {
           console.log(data); 
         });
+        console.log("api being called");
+        sendPushNotification(token);
+        // console.log("api being called");
+        // sendPushNotification(expoPushToken);
+        // async () => {
+        //   await sendPushNotification(expoPushToken);
+        // }       
       })
       .catch(function (error) {
           console.log(error)
       });
-     navigation.goBack();
+      navigation.goBack();
   }
 
   return (
@@ -67,7 +75,7 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
         value={value}
       />
       <TouchableOpacity
-        onPress={() => {handleClick(value);}}
+         onPress={() => {handleClick(value);}}
         style={styles.button}>
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
@@ -116,6 +124,34 @@ const styles = StyleSheet.create({
   },
 });
 
+function sendPushNotification(expoPushToken: String) {
+  console.log(expoPushToken);
+  axios.post('https://exp.host/--/api/v2/push/send', {
+    "to": `${expoPushToken}`,
+    "title": "Notification",
+    "body": "Lab results are updated"
+    }).then(resp=>{
+      console.log(resp.data);
+    })  
+    .catch(error=>{
+      console.log(error);
+    });
+  // const message = {
+  //   to: expoPushToken,
+  //   title: 'Notification',
+  //   body: 'Lab results are updated',
+  //   data: { message: '${title} - ${body}' },
+  // };
+  // console.log("workig")
+  // await fetch('https://exp.host/--/api/v2/push/send', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(message),
+  // });
+}
+
 async function registerForPushNotificationsAsync(token: any) {
   if (Constants.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
@@ -140,6 +176,5 @@ async function registerForPushNotificationsAsync(token: any) {
       lightColor: '#FF231F7C',
     });
   }
-
   return token;
 }

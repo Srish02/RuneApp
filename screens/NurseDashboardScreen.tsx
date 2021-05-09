@@ -31,9 +31,9 @@ export default function NurseDashboardScreen({ route, navigation }: StackScreenP
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            // <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.LastName}</Text>
+            //  <Text style={styles.setColorBlack}>{item.id}, {item.FirstName}, {item.token}</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('NurseEditDetails', {itemId: item.id, token: item.token,})}
+                onPress={() => navigation.navigate('NurseEditDetails', {itemId: item.id, token: item.ExpoNotificationToken})}
                 style={styles.button}>
                 <Text style={styles.buttonText}>{item.FirstName}</Text>
               </TouchableOpacity>

@@ -61,7 +61,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
             onChangeText={(UserEmail) =>
               setFirstName(UserEmail)
             }
-            placeholder="Enter Email"
+            placeholder="Enter First Name"
             placeholderTextColor="#8b9cb5"
           />
         </View>
@@ -71,7 +71,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
             onChangeText={(UserPassword) =>
               setLastName(UserPassword)
             }
-            placeholder="Enter Password" 
+            placeholder="Enter Last Name" 
             placeholderTextColor="#8b9cb5"
             keyboardType="default"
             returnKeyType="next"
