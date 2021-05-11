@@ -8,7 +8,7 @@ import axios from 'axios'
 import * as Notifications from 'expo-notifications';
 import Colors from '../constants/Colors';
 
-export default function PatientLoginScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientLogin'>) {
+export default function PatientSignUpScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientSignUp'>) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,17 +55,21 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Patient Login</Text>
+      <Text style={styles.title}>Patient Sign Up</Text>
       <View style={styles.spacer}></View>
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(firstName) => setFirstName(firstName)}
+        onChangeText={(UserEmail) =>
+          setFirstName(UserEmail)
+        }
         placeholder="First Name"
         placeholderTextColor="#8b9cb5"
       />
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(lastName) => setLastName(lastName)}
+        onChangeText={(UserPassword) =>
+          setLastName(UserPassword)
+        }
         placeholder="Last Name" 
         placeholderTextColor="#8b9cb5"
         keyboardType="default"
@@ -75,6 +79,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
       <View style={styles.spacer}></View>
       <TouchableOpacity
         onPress={handleSubmitPress}
+        // onPress={() => navigation.navigate('PatientDashboard')}
         style={styles.button}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -153,4 +158,3 @@ const styles = StyleSheet.create({
 async function registerForPushNotificationsAsync() {
   return (await Notifications.getExpoPushTokenAsync()).data;
 }
-

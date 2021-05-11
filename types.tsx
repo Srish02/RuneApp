@@ -1,6 +1,8 @@
 export type RootStackParamList = {
   Splash: undefined;
   PatientLogin: undefined;
+  PatientLoginOrSignup: undefined;
+  PatientSignUp: undefined;
   PatientDashboard: undefined;
   PatientTestResults: undefined;
   NurseLogin: undefined;
