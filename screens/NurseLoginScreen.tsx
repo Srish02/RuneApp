@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#FAF1EF'
   },
   title: {
     top:-50,
     fontSize: 40,
     fontWeight: 'bold',
-    color:"#fff",
+    color:"#000000",
   },
   separator: {
     marginVertical: 30,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   setColorRed : {
-    color: '#191970'
+    color: '#000000'
   },
   SectionStyle: {
     flexDirection: 'row',

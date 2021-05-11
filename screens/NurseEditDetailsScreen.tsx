@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Alert, Platform, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Alert, Platform, Keyboard } from 'react-native';
 import { useEffect, useState, useRef } from 'react';
 import * as Notifications from 'expo-notifications'
 
@@ -13,7 +13,7 @@ import { RootStackParamList } from '../types';
 
 export default function NurseEditDetails({ route, navigation }: StackScreenProps<RootStackParamList, 'NurseEditDetails'>) {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<any>([]);
 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -22,7 +22,9 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
 
   const { itemId, token } = route.params;
 
-  const [value, onChangeText] = useState<string>();
+  const [rbc_value, onChangeTextRBC] = useState<string>();
+  const [glucos_value, onChangeTextGLUCOSE] = useState<string>();
+  const [thyroid_value, onChangeTextThyroid] = useState<string>();
 
   useEffect(() => {
     // This listener is fired whenever a notification is received while the app is foregrounded
@@ -39,11 +41,14 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
       .finally(() => setLoading(false));
   }, []);
 
-  const handleClick = (value: any) => {
+  const handleClick = (value: any, glucos_value: any, thyroid_value: any) => {
     console.log(value)
-
-    axios.put('https://rune-rest-api.azurewebsites.net/api/patient/'+`${itemId}`, {
-      "TestResults":value
+    //https://rune-rest-api.azurewebsites.net/api/patients/%7Bid%7D/bloodwork
+    console.log()
+    axios.post('https://rune-rest-api.azurewebsites.net/api/patients/'+`${itemId}`+'/bloodwork', {
+      "RBC": value,
+      "GlucoseLevel": glucos_value,
+      "Thyroid": thyroid_value
     })
       .then(response => {
         //console.log(response);
@@ -65,19 +70,39 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
       });
       navigation.goBack();
   }
+  
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, styles.setColorBlack]}>Nurse Edit Details Screen</Text>
+      <Text style={[styles.title, styles.setColorBlack]}>Patient Lab Report</Text>
+      <Text style={[styles.textDisplay, styles.setColorBlack]}>First Name: {(data.FirstName)}</Text>
+      <Text style={[styles.textDisplay1, styles.setColorBlack]}>Last Name: {(data.LastName)}</Text>
       <TextInput
         style={styles.input}
-        onChangeText={text => onChangeText(text)}
-        value={value}
+        onChangeText={text => onChangeTextRBC(text)}
+        value={rbc_value}
+        placeholder="Update RBC"
+        placeholderTextColor="#8b9cb5"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={text => onChangeTextGLUCOSE(text)}
+        value={glucos_value}
+        placeholder="Update Glucose level"
+        placeholderTextColor="#8b9cb5"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={text => onChangeTextThyroid(text)}
+        value={thyroid_value}
+        placeholder="Update Thyroid"
+        placeholderTextColor="#8b9cb5"
+        onSubmitEditing={Keyboard.dismiss}
       />
       <TouchableOpacity
-         onPress={() => {handleClick(value);}}
+         onPress={() => {handleClick(rbc_value, glucos_value, thyroid_value);}}
         style={styles.button}>
-        <Text style={styles.buttonText}>Submit</Text>
+        <Text style={styles.buttonText}>Submit Results</Text>
       </TouchableOpacity>
     </View>
   );
@@ -88,17 +113,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FAF1EF',
   },
   title: {
-    top:-220,
-    fontSize: 20,
+    top:-120,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    fontSize: 33,
   },
   button: {
     padding: 20,
@@ -119,8 +139,25 @@ const styles = StyleSheet.create({
     width:300,
     borderWidth: 1,
   },
+  textDisplay: {
+    fontSize: 20,
+    top:-20,
+    lineHeight: 30,
+    left:'-21%'
+  },
+  textDisplay1: {
+    fontSize: 20,
+    top:-20,
+    lineHeight: 30,
+    left:'-19.5%'
+  },
   setColorBlack : {
     color: '#000000'
+  },
+  separator: {
+    marginVertical: 120,
+    height: 2,
+    width: '80%',
   },
 });
 

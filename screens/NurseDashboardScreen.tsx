@@ -24,8 +24,11 @@ export default function NurseDashboardScreen({ route, navigation }: StackScreenP
   
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, styles.setColorBlack]}>Patient List</Text>
+      {/* <Text style={[styles.title, styles.setColorBlack]}>Patient List</Text> */}
+      <Text style={styles.goodMorning}>Good morning,</Text>
+      <Text style={styles.goodMorningName}>Olivia</Text>
       <View style={styles.separator} />
+      <Text style={styles.patientAssigned}>Patients Assigned:</Text>
       {isLoading ? <Text>Loading...</Text> :
       <FlatList
           data={data}
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#FAF1EF',
   },
   title: {
     top: 106,
@@ -69,6 +72,7 @@ const styles = StyleSheet.create({
     color: '#000000'
   },
   button: {
+    marginTop: 40,
     padding: 20,
     margin: 10,
     backgroundColor: '#fff',
@@ -80,5 +84,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: '#000',
-  }
+  },
+  goodMorning: {
+    left: "-11.5%",
+    top: 100,
+    fontSize: 33,
+    color: '#000000'
+  },
+  goodMorningName: {
+    left: "-26%",
+    top: 105,
+    fontSize: 33,
+    fontWeight: "bold",
+    color: '#000000'
+  },
+  patientAssigned: {
+    marginTop: -70,
+    left: "-16%",
+    fontSize: 20,
+    color: '#000000'
+  },
 });
