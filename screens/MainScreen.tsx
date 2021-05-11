@@ -21,7 +21,7 @@ export default function MainScreen({ route, navigation }: Props) {
         <TouchableOpacity style={styles.fixToText} onPress={() => navigation.navigate('NurseLogin')}>
           <Text style={styles.buttonText}>Nurse</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.fixToText1} onPress={() => navigation.navigate('PatientLogin')}>
+        <TouchableOpacity style={styles.fixToText1} onPress={() => navigation.navigate('PatientLoginOrSignup')}>
           <Text style={styles.buttonText}>Patient</Text>
         </TouchableOpacity>
       </View>

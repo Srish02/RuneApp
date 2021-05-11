@@ -5,7 +5,6 @@ import { ColorSchemeName } from 'react-native';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 
-// import PatientListScreen from '../screens/PatientListScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import MainScreen from '../screens/MainScreen';
@@ -14,7 +13,9 @@ import NurseDashboardScreen from '../screens/NurseDashboardScreen';
 import NurseEditDetails from '../screens/NurseEditDetailsScreen';
 import NurseLoginScreen from '../screens/NurseLoginScreen';
 import PatientDashboardScreen from '../screens/PatientDashboardScreen';
+import PatientLoginOrSignupScreen from '../screens/PatientLoginOrSignUpScreen';
 import PatientLoginScreen from '../screens/PatientLoginScreen';
+import PatientSignUpScreen from '../screens/PatientSignUpScreen';
 import PatientTestResults from '../screens/PatientTestResultsScreen';
 import SplashScreen from '../screens/SplashScreen';
 
@@ -27,7 +28,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -46,7 +47,9 @@ function RootNavigator() {
       <Stack.Screen name="PatientList" component={PatientListScreen} />
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash"> */}
       <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="PatientLoginOrSignup" component={PatientLoginOrSignupScreen} />
       <Stack.Screen name="PatientLogin" component={PatientLoginScreen} />
+      <Stack.Screen name="PatientSignUp" component={PatientSignUpScreen} />
       <Stack.Screen name="PatientDashboard" component={PatientDashboardScreen} />
       <Stack.Screen name="PatientTestResults" component={PatientTestResults} />
       <Stack.Screen name="NurseLogin" component={NurseLoginScreen} />

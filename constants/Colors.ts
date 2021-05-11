@@ -16,4 +16,12 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  patient: {
+    button: '#4B74FF',
+    background: '#e7edfe',
+  },
+  nurse: {
+    button: '#AE3E3E',
+    background: '#f6e5e5',
+  },
 };
