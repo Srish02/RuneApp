@@ -3,6 +3,7 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
+import Colors from '../constants/Colors';
 import { RootStackParamList } from '../types';
 
 export default function PatientDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientDashboard'>) {
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
+    backgroundColor: Colors.patient.background,
   },
   spacer: {
     marginVertical: 100,

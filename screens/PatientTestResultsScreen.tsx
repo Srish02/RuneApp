@@ -3,6 +3,7 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
+import Colors from '../constants/Colors';
 import { RootStackParamList } from '../types';
 
 export default function PatientTestResults({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientTestResults'>) {
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.patient.background,
   },
   title: {
     fontSize: 20,

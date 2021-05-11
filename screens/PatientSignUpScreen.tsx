@@ -11,25 +11,45 @@ import Colors from '../constants/Colors';
 export default function PatientSignUpScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientSignUp'>) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState('');
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [mrn, setMrn] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
 
   const handleSubmitPress = async () => {
-    setErrortext('');
     if (!firstName) {
-      alert('Please fill firstName');
+      alert('Please fill First Name.');
       return;
     }
     if (!lastName) {
-      alert('Please fill lastName');
+      alert('Please fill Last Name.');
       return;
     }
-    setLoading(true);
+    if (!height) {
+      alert('Please fill Height.');
+      return;
+    }
+    if (!weight) {
+      alert('Please fill Weight.');
+      return;
+    }
+    if (!mrn) {
+      alert('Please fill MRN.');
+      return;
+    }
+    if (!dateOfBirth) {
+      alert('Please fill Date Of Birth.');
+      return;
+    }
 
     const token = await registerForPushNotificationsAsync();
     axios.post('https://rune-rest-api.azurewebsites.net/api/patients', {
       "FirstName": firstName,
       "LastName": lastName,
+      "Height": height,
+      "Weight": weight,
+      "MRN": mrn,
+      "DateOfBirth": dateOfBirth,
       "ExpoNotificationToken": token,
     })
       .then(response => {
@@ -59,18 +79,50 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
       <View style={styles.spacer}></View>
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(UserEmail) =>
-          setFirstName(UserEmail)
-        }
+        onChangeText={(firstName) => setFirstName(firstName)}
         placeholder="First Name"
         placeholderTextColor="#8b9cb5"
       />
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(UserPassword) =>
-          setLastName(UserPassword)
-        }
+        onChangeText={(lastName) => setLastName(lastName)}
         placeholder="Last Name" 
+        placeholderTextColor="#8b9cb5"
+        keyboardType="default"
+        returnKeyType="next"
+        onSubmitEditing={Keyboard.dismiss}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        onChangeText={(height) => setHeight(height)}
+        placeholder="Height" 
+        placeholderTextColor="#8b9cb5"
+        keyboardType="default"
+        returnKeyType="next"
+        onSubmitEditing={Keyboard.dismiss}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        onChangeText={(weight) => setWeight(weight)}
+        placeholder="Weight" 
+        placeholderTextColor="#8b9cb5"
+        keyboardType="default"
+        returnKeyType="next"
+        onSubmitEditing={Keyboard.dismiss}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        onChangeText={(mrn) => setMrn(mrn)}
+        placeholder="MRN" 
+        placeholderTextColor="#8b9cb5"
+        keyboardType="default"
+        returnKeyType="next"
+        onSubmitEditing={Keyboard.dismiss}
+      />
+      <TextInput
+        style={styles.inputStyle}
+        onChangeText={(dob) => setDateOfBirth(dob)}
+        placeholder="Date of birth" 
         placeholderTextColor="#8b9cb5"
         keyboardType="default"
         returnKeyType="next"
@@ -81,7 +133,7 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onPress={handleSubmitPress}
         // onPress={() => navigation.navigate('PatientDashboard')}
         style={styles.button}>
-        <Text style={styles.buttonText}>Login</Text>
+        <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
@@ -151,7 +203,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   spacer: {
-    marginVertical: 30,
+    marginVertical: 15,
   },
 });
 
