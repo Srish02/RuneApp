@@ -9,32 +9,28 @@ import * as Notifications from 'expo-notifications';
 import Colors from '../constants/Colors';
 
 export default function PatientLoginScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientLogin'>) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [id, setId] = useState("");
 
   const handleSubmitPress = async () => {
-    setErrortext('');
-    if (!firstName) {
-      alert('Please fill firstName');
+    if (!fullName) {
+      alert('Please fill full name.');
       return;
     }
-    if (!lastName) {
-      alert('Please fill lastName');
+    if (!id) {
+      alert('Please fill id.');
       return;
     }
-    setLoading(true);
 
-    const token = await registerForPushNotificationsAsync();
-    axios.post('https://rune-rest-api.azurewebsites.net/api/patients', {
-      "FirstName": firstName,
-      "LastName": lastName,
-      "ExpoNotificationToken": token,
-    })
+    await axios.get(`https://rune-rest-api.azurewebsites.net/api/patients/${id}`)
       .then(response => {
-        console.log(response);
-        navigation.replace('PatientDashboard');
+        if (response.data === "") {
+          alert('Not a valid user ID.')
+          throw new Error('Invalid user ID');
+        } else {
+          console.log(response);
+          navigation.replace('PatientDashboard');
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -59,14 +55,14 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
       <View style={styles.spacer}></View>
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(firstName) => setFirstName(firstName)}
-        placeholder="First Name"
+        onChangeText={(fullName) => setFullName(fullName)}
+        placeholder="Full Name"
         placeholderTextColor="#8b9cb5"
       />
       <TextInput
         style={styles.inputStyle}
-        onChangeText={(lastName) => setLastName(lastName)}
-        placeholder="Last Name" 
+        onChangeText={(id) => setId(id)}
+        placeholder="ID" 
         placeholderTextColor="#8b9cb5"
         keyboardType="default"
         returnKeyType="next"

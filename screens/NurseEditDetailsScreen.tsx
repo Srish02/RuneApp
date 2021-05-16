@@ -58,6 +58,7 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
       <Text style={[styles.title, styles.setColorBlack]}>Patient Lab Report</Text>
       <Text style={[styles.textDisplay, styles.setColorBlack]}>First Name: {(data.FirstName)}</Text>
       <Text style={[styles.textDisplay1, styles.setColorBlack]}>Last Name: {(data.LastName)}</Text>
+      <Text style={[styles.textDisplay, styles.setColorBlack]}>Patient ID: {(data.IdPatient)}</Text>
       <TextInput
         style={styles.input}
         onChangeText={text => onChangeTextRBC(text)}
