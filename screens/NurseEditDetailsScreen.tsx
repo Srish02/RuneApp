@@ -41,34 +41,15 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
       .finally(() => setLoading(false));
   }, []);
 
-  const handleClick = (value: any, glucos_value: any, thyroid_value: any) => {
-    console.log(value)
-    //https://rune-rest-api.azurewebsites.net/api/patients/%7Bid%7D/bloodwork
-    console.log()
+  const handleClick = async (value: any, glucos_value: any, thyroid_value: any) => {    
+    // don't await because we want the button to work immediately
     axios.post('https://rune-rest-api.azurewebsites.net/api/patients/'+`${itemId}`+'/bloodwork', {
       "RBC": value,
       "GlucoseLevel": glucos_value,
       "Thyroid": thyroid_value
-    })
-      .then(response => {
-        //console.log(response);
-        // console.log(token);
-        registerForPushNotificationsAsync(token).then(token => setExpoPushToken(token));
-        Notifications2.addListener((data: any) => {
-          console.log(data); 
-        });
-        console.log("api being called");
-        sendPushNotification(token);
-        // console.log("api being called");
-        // sendPushNotification(expoPushToken);
-        // async () => {
-        //   await sendPushNotification(expoPushToken);
-        // }       
-      })
-      .catch(function (error) {
-          console.log(error)
-      });
-      navigation.goBack();
+    }).catch(function (error) { console.log(error) });
+
+    navigation.goBack();
   }
   
 
