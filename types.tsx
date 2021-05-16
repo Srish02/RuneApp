@@ -3,7 +3,7 @@ export type RootStackParamList = {
   PatientLogin: undefined;
   PatientLoginOrSignup: undefined;
   PatientSignUp: undefined;
-  PatientDashboard: undefined;
+  PatientDashboard: {patientId: string};
   PatientTestResults: undefined;
   NurseLogin: undefined;
   NurseDashboard: undefined;

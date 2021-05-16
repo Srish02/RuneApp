@@ -5,8 +5,34 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import Colors from '../constants/Colors';
 import { RootStackParamList } from '../types';
+import axios from 'axios'
 
 export default function PatientDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientDashboard'>) {
+  const { patientId } = route.params;
+  
+  const handleHelpPress = async () => {
+    axios.post(`https://rune-rest-api.azurewebsites.net/api/patients/${patientId}/help`)
+      .then(response => {
+        console.log(response);
+        alert('A nurse is on their way!');
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (error.response) {
+          // Request made and server responded
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log('Request', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+        }
+      });
+  };
+  
   return (
     <View style={styles.container}>
       <Text style={styles.goodMorning}>Good morning,</Text>
@@ -15,12 +41,17 @@ export default function PatientDashboardScreen({ route, navigation }: StackScree
       <View style={styles.spacer}></View>
       <TouchableOpacity
         onPress={() => navigation.navigate('PatientTestResults')}
-        style={[styles.button, styles.testResultsButton]}>
+        style={styles.button}>
         <Text style={styles.buttonText}>Check Test Results</Text>
       </TouchableOpacity>
       <TouchableOpacity
+        onPress={handleHelpPress}
+        style={[styles.button, styles.helpButton]}>
+        <Text style={[styles.buttonText, styles.helpButtonText]}>Request Help</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => navigation.popToTop()}
-        style={[styles.button, styles.logOut]}>
+        style={styles.button}>
         <Text style={styles.buttonText}>Log Out</Text>
       </TouchableOpacity>
     </View>
@@ -54,12 +85,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 40,
     width: 300,
-  },
-  logOut: {
     alignSelf: 'center',
   },
-  testResultsButton: {
-    alignSelf: 'center',
+  helpButton: {
+    backgroundColor: '#f55',
+  },
+  helpButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
   buttonText: {
     textAlign: 'center',

@@ -54,7 +54,8 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
     })
       .then(response => {
         console.log(response);
-        navigation.replace('PatientDashboard');
+        const patientId = response.data.IdPatient;
+        navigation.replace('PatientDashboard', { patientId });
       })
       .catch(function (error) {
         console.log(error);

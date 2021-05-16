@@ -29,7 +29,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
           throw new Error('Invalid user ID');
         } else {
           console.log(response);
-          navigation.replace('PatientDashboard');
+          navigation.replace('PatientDashboard', { patientId: id });
         }
       })
       .catch(function (error) {
