@@ -100,9 +100,14 @@ export default function NurseEditDetails({ route, navigation }: StackScreenProps
         onSubmitEditing={Keyboard.dismiss}
       />
       <TouchableOpacity
-         onPress={() => {handleClick(rbc_value, glucos_value, thyroid_value);}}
+         onPress={() => handleClick(rbc_value, glucos_value, thyroid_value)}
         style={styles.button}>
         <Text style={styles.buttonText}>Submit Results</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+         onPress={() => navigation.pop()}
+        style={styles.button}>
+        <Text style={styles.buttonText}>Back</Text>
       </TouchableOpacity>
     </View>
   );

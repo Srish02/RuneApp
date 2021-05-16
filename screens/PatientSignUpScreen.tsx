@@ -11,8 +11,8 @@ import Colors from '../constants/Colors';
 export default function PatientSignUpScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientSignUp'>) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState<number | undefined>(undefined);
+  const [weight, setWeight] = useState<number | undefined>(undefined);
   const [mrn, setMrn] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
 
@@ -73,17 +73,35 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
       });
   };
 
+  const handleDemoAutofill = () => {
+    const firstNames = ['Olivia', 'Emma', 'Ava', 'Charlotte', 'Sophia', 'Amelia', 'Isabella', 'Mia', 'Evelyn', 'Harper', 'Liam', 'Noah', 'Oliver', 'Elijah', 'William', 'James', 'Benjamin', 'Lucas', 'Henry', 'Alexander'];
+    const lastNames = ['Brown', 'Smith', 'Patel', 'Jones', 'Williams', 'Johnson', 'Taylor', 'Thomas', 'Roberts', 'Khan', 'Lewis', 'Jackson'];
+    let padToSeven = (num: number) => num <= 9999999 ? `000000${num}`.slice(-7) : String(num);
+    const randomYear = Math.floor(Math.random() * 50) + 49;
+    const randomMonth = Math.floor(Math.random() * 12) + 1;
+    const randomDay = Math.floor(Math.random() * 28) + 1;
+
+    setFirstName(firstNames[Math.floor(Math.random() * firstNames.length)]);
+    setLastName(lastNames[Math.floor(Math.random() * lastNames.length)]);
+    setHeight(Math.floor(Math.random() * 24) + 54);
+    setWeight(Math.floor(Math.random() * 100) + 100);
+    setMrn(padToSeven(Math.floor(Math.random() * 9999999)));
+    setDateOfBirth(`${randomMonth}/${randomDay}/${randomYear}`)
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Patient Sign Up</Text>
       <View style={styles.spacer}></View>
       <TextInput
+        value={firstName}
         style={styles.inputStyle}
         onChangeText={(firstName) => setFirstName(firstName)}
         placeholder="First Name"
         placeholderTextColor="#8b9cb5"
       />
       <TextInput
+        value={lastName}
         style={styles.inputStyle}
         onChangeText={(lastName) => setLastName(lastName)}
         placeholder="Last Name" 
@@ -93,24 +111,27 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onSubmitEditing={Keyboard.dismiss}
       />
       <TextInput
+        value={height ? String(height) : ''}
         style={styles.inputStyle}
-        onChangeText={(height) => setHeight(height)}
-        placeholder="Height" 
+        onChangeText={(height) => setHeight(Number(height))}
+        placeholder="Height (inches)" 
         placeholderTextColor="#8b9cb5"
         keyboardType="default"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
       <TextInput
+        value={weight ? String(weight) : ''}
         style={styles.inputStyle}
-        onChangeText={(weight) => setWeight(weight)}
-        placeholder="Weight" 
+        onChangeText={(weight) => setWeight(Number(weight))}
+        placeholder="Weight (lbs)" 
         placeholderTextColor="#8b9cb5"
         keyboardType="default"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
       <TextInput
+        value={mrn}
         style={styles.inputStyle}
         onChangeText={(mrn) => setMrn(mrn)}
         placeholder="MRN" 
@@ -120,6 +141,7 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onSubmitEditing={Keyboard.dismiss}
       />
       <TextInput
+        value={dateOfBirth}
         style={styles.inputStyle}
         onChangeText={(dob) => setDateOfBirth(dob)}
         placeholder="Date of birth" 
@@ -128,7 +150,13 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
-      <View style={styles.spacer}></View>
+      {/* <View style={styles.spacer}></View> */}
+      <TouchableOpacity
+        onPress={() => handleDemoAutofill()}
+        // onPress={() => navigation.navigate('PatientDashboard')}
+        style={styles.miniButton}>
+        <Text style={styles.miniButtonText}>Autofill for demo</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={handleSubmitPress}
         // onPress={() => navigation.navigate('PatientDashboard')}
@@ -177,6 +205,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000',
   },
+  miniButton: {
+    padding: 15,
+    margin: 10,
+    backgroundColor: '#afa',
+    borderWidth: 2,
+    borderRadius: 40,
+    alignSelf: 'center',
+  },
+  miniButtonText: {
+    textAlign: 'center',
+    fontSize: 15,
+    color: '#000'
+  },
   setColorRed : {
     color: '#191970'
   },
@@ -204,7 +245,7 @@ const styles = StyleSheet.create({
   },
   spacer: {
     marginVertical: 15,
-  },
+  }
 });
 
 async function registerForPushNotificationsAsync() {
