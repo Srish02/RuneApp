@@ -116,7 +116,7 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onChangeText={(height) => setHeight(Number(height))}
         placeholder="Height (inches)" 
         placeholderTextColor="#8b9cb5"
-        keyboardType="default"
+        keyboardType="numeric"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
@@ -126,7 +126,7 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onChangeText={(weight) => setWeight(Number(weight))}
         placeholder="Weight (lbs)" 
         placeholderTextColor="#8b9cb5"
-        keyboardType="default"
+        keyboardType="numeric"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
@@ -136,7 +136,7 @@ export default function PatientSignUpScreen({ route, navigation }: StackScreenPr
         onChangeText={(mrn) => setMrn(mrn)}
         placeholder="MRN" 
         placeholderTextColor="#8b9cb5"
-        keyboardType="default"
+        keyboardType="numeric"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
