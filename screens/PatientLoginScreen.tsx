@@ -64,7 +64,7 @@ export default function PatientLoginScreen({ route, navigation }: StackScreenPro
         onChangeText={(id) => setId(id)}
         placeholder="ID" 
         placeholderTextColor="#8b9cb5"
-        keyboardType="default"
+        keyboardType="numeric"
         returnKeyType="next"
         onSubmitEditing={Keyboard.dismiss}
       />
