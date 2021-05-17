@@ -6,9 +6,21 @@ import { Text, View } from '../components/Themed';
 import Colors from '../constants/Colors';
 import { RootStackParamList } from '../types';
 import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 export default function PatientDashboardScreen({ route, navigation }: StackScreenProps<RootStackParamList, 'PatientDashboard'>) {
   const { patientId } = route.params;
+  const [data, setData] = useState<any>(undefined);
+
+  useEffect(() => {
+    fetch(`https://rune-rest-api.azurewebsites.net/api/patients/${patientId}`)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setData(json)
+      })
+      .catch((error) => console.error(error))
+  }, []);
   
   const handleHelpPress = async () => {
     axios.post(`https://rune-rest-api.azurewebsites.net/api/patients/${patientId}/help`)
@@ -35,25 +47,28 @@ export default function PatientDashboardScreen({ route, navigation }: StackScree
   
   return (
     <View style={styles.container}>
-      <Text style={styles.goodMorning}>Good morning,</Text>
-      <Text style={styles.goodMorningName}>Oliver</Text>
-      <Text style={styles.nurseAssigned}>Nurse Assigned: Alex</Text>
-      <View style={styles.spacer}></View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('PatientTestResults')}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Check Test Results</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={handleHelpPress}
-        style={[styles.button, styles.helpButton]}>
-        <Text style={[styles.buttonText, styles.helpButtonText]}>Request Help</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.popToTop()}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Log Out</Text>
-      </TouchableOpacity>
+      { data && <>
+        <Text style={styles.goodMorning}>Good morning,</Text>
+        <Text style={styles.goodMorningName}>{data.FirstName}</Text>
+        <Text style={styles.nurseAssigned}>Nurse Assigned: Olivia</Text>
+        <View style={styles.spacer}></View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('PatientTestResults')}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Check Test Results</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleHelpPress}
+          style={[styles.button, styles.helpButton]}>
+          <Text style={[styles.buttonText, styles.helpButtonText]}>Request Help</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.popToTop()}
+          style={styles.button}>
+          <Text style={styles.buttonText}>Log Out</Text>
+        </TouchableOpacity>
+        </>
+      }
     </View>
   );
 }
