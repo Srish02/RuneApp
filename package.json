@@ -20,7 +20,9 @@
     "axios": "^0.21.1",
     "expo": "~40.0.0",
     "expo-asset": "~8.2.1",
+    "expo-components": "^1.5.19",
     "expo-constants": "~9.3.0",
+    "expo-file-system": "~9.3.0",
     "expo-font": "~8.4.0",
     "expo-linking": "~2.0.0",
     "expo-notifications": "~0.8.2",
@@ -34,7 +36,10 @@
     "react-native-gesture-handler": "~1.8.0",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-native-webview": "^11.4.4",
+    "rn-pdf-reader-js": "^4.1.1",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
